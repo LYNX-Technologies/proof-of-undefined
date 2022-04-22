@@ -7,6 +7,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div>
+          <h2>NFTs yo</h2>
           <Routes>
             {/* <Route path="/" element={<Landing />} /> */}
             <Route path="/oura" element={<Oura />} />
