@@ -1,0 +1,47 @@
+name: Continuous testing
+
+on:
+  pull_request:
+    types: [
+      'opened',
+      'synchronize'
+    ]
+  push:
+    branches:
+      - main
+
+jobs:
+  test-functions:
+    name: Firebase functions test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use node 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org
+      - name: install
+        run: npm --prefix functions ci
+      - name: lint
+        run: npm run --prefix functions lint
+      - name: build
+        run: npm run --prefix functions build
+      - name: test
+        run: npm --prefix functions test
+  test-client:
+    name: Client test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use node 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org
+      - name: install
+        run: yarn install --frozen-lockfile
+      - name: test
+        run: yarn run test
+      - name: build
+        run: yarn run build
