@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/Goals" element={<Goals />} />
+          <Route path="/goals" element={<Goals />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/oura_redirect" element={<OuraRedirectPage />} />
         </Routes>

@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../config/firebase";
 
 const { REACT_APP_OURA_CLIENT_ID } = process.env;
 
