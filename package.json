@@ -37,7 +37,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "npm install --prefix contracts",
-    "firebase-deploy": "yarn run build && firebase deploy -f"
+    "firebase-deploy": "npm run build && firebase deploy -f"
   },
   "eslintConfig": {
     "extends": [
