@@ -91,4 +91,5 @@ junit.xml
 #Hardhat files
 cache
 artifacts
-src/contracts
+!src/contracts
+!src/artifacts
