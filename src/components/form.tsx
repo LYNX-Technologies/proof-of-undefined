@@ -67,8 +67,14 @@ export default function Form() {
 }
 
 const daos = [
+  { label: 'Aave'},
+  { label: 'Dash'},
+  { label: 'GitcoinDAO'},
   { label: 'MakerDAO'},
+  { label: 'SuperRare'},
+  { label: 'SushiSwap'},
+  { label: 'Uniswap'},
   { label: 'VitaDao'},
-  { label: '...'},
-  { label: '...' }
+  { label: 'Yuga Labs'},
+  { label: '0x' }
 ]
