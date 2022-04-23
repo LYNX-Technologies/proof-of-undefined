@@ -1,38 +1,62 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../config/firebase";
 
 const { REACT_APP_OURA_CLIENT_ID } = process.env;
-
 
 /**
  * A page that is used to authorize Oura access.
  */
 function AuthorizeOuraButton() {
-  const [credentials, setCredentials] = useState(null);
+  const [data, setData] = useState(null);
 
   //
-  // Fetch the credentials in local storage if they exist.
+  // Fetch the data in local storage if it exists.
   //
   useEffect(() => {
-    const c = localStorage.getItem('oura_credentials')
+    const d = localStorage.getItem("data");
 
-    if (c) {
-      return setCredentials(JSON.parse(c));
+    if (d) {
+      return setData(JSON.parse(d));
     }
-  }, [])
+  }, []);
 
   //
   // Start the authorization process.
   //
   const authorizeOura = () => {
-    const url = `https://cloud.ouraring.com/oauth/authorize?response_type=code&client_id=${REACT_APP_OURA_CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000/oura_redirect`;
+    const redirectUri =
+      process.env.NODE_ENV === "development"
+        ? "http%3A%2F%2Flocalhost%3A3000%2Foura_redirect"
+        : "https%3A%2F%2Fproof-of-unknown.web.app%2Foura_redirect";
+
+    const url = `https://cloud.ouraring.com/oauth/authorize?response_type=code&client_id=${REACT_APP_OURA_CLIENT_ID}&redirect_uri=${redirectUri}`;
 
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
+
+    // Mock the meditation data
+    const mock = {
+      meditation_sessions: [
+        {
+          date: "2022-04-20",
+          duration: 5,
+        },
+        {
+          date: "2022-04-21",
+          duration: 5,
+        },
+      ],
+    };
+
+    localStorage.setItem("data", JSON.stringify(mock));
   };
 
   return (
-    <Button onClick={authorizeOura} variant="contained">{credentials ? "Done" : "Connect Device"}</Button>
+    <Button onClick={authorizeOura} variant="contained">
+      {data ? "Connected" : "Connect Device"}
+    </Button>
   );
 }
 
