@@ -116,7 +116,7 @@ export const Modal = (): JSX.Element => {
       chainId: network.chainId,
     });
 
-    wallet.setAddress(address);
+    wallet.setAddress(address, signer);
   }, [])
 
   const disconnect = useCallback(
