@@ -3,6 +3,8 @@ import { Modal, Box, Button, CardActionArea, CardActions, Card, Grid, CardConten
 import MeditationImg from './assets/undraw_meditation.svg';
 import RunningImg from './assets/undraw_running.svg';
 import WalkingImg from './assets/undraw_walking.svg';
+import { useWallet } from './contexts/wallet';
+import { stakeEthereum } from './lib/stake';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -22,9 +24,17 @@ function valuetext(value: number) {
 }
 
 export default function Goals() {
+    const wallet = useWallet();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    async function submitChallenge(numberOfDays: number, amountOfEtherWithDecimal: number) {
+        if (wallet.provider) {
+            await stakeEthereum(wallet.provider, numberOfDays, amountOfEtherWithDecimal);
+        }
+    }
+
 
   return (
     <div>
@@ -157,7 +167,7 @@ export default function Goals() {
                 marks={length}
             />
           </Box>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={() => submitChallenge(30, 0.05)}>
             SUBMIT
           </Button>
         </Box>
