@@ -1,7 +1,7 @@
-import "./App.css";
-import Oura from "./Oura";
+import "./styles/App.css";
 import OuraRedirect from "./OuraRedirect";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
@@ -10,8 +10,9 @@ function App() {
         <div>
           <h2>NFTs yo</h2>
           <Routes>
-            {/* <Route path="/" element={<Landing />} /> */}
-            <Route path="/oura" element={<Oura />} />
+          <Route path="/" element={<Dashboard />}/>
+            <Route path="/dashboard" element={<Dashboard />}/>
+            <Route path="/oura_redirect" element={<OuraRedirect />} />
           </Routes>
         </div>
       </BrowserRouter>
