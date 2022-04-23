@@ -6,8 +6,6 @@ import WalkingImg from './assets/undraw_walking.svg';
 import { useWallet } from './contexts/wallet';
 import { stakeEthereum } from './lib/stake';
 import { Link } from 'react-router-dom';
-import { useWallet } from './contexts/wallet';
-import { stakeEthereum } from './lib/stake';
 
 const style = {
     position: 'absolute' as 'absolute',
