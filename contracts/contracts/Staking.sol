@@ -35,7 +35,7 @@ contract Staking {
         require(block.timestamp > userGoals[target].deadline, "Deadline hasn't been achieved");
         address payable payee = payable(target);
         totalPool -= userGoals[target].stakedAmount;
-        userGoals[target].stakedAmount = 0;
         payee.transfer(userGoals[target].stakedAmount);
+        userGoals[target] = UserGoals(0, 0);
     }
 }
