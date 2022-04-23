@@ -1,9 +1,10 @@
 import "./styles/App.css";
-import Oura from "./Oura";
+import Dashboard from "./Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Form from './components/form';
 import Modal from './components/modal';
 import Button from '@mui/material/Button';
+import OuraRedirectPage from "./OuraRedirect";
 
 
 function App() {
@@ -16,8 +17,8 @@ function App() {
           <Button variant="contained">Connect Wallet</Button>
           <Modal />
           <Routes>
-            {/* <Route path="/" element={<Landing />} /> */}
-            <Route path="/oura" element={<Oura />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/oura_redirect" element={<OuraRedirectPage />} />
           </Routes>
         </div>
       </BrowserRouter>
