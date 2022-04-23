@@ -1,5 +1,6 @@
 import "./styles/App.css";
 import Login from './login';
+import Goals from './Goals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 window.Buffer = window.Buffer || require("buffer").Buffer
@@ -10,7 +11,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login/>}/>
-        <Route path="/privacy" element={<p>HELLO!</p>}/>
+        <Route path="/Goals" element={<Goals/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -60,7 +60,7 @@ export default function Form() {
         renderInput={(params) => <TextField {...params} label="DAO" />}
       />
        <div style={{ margin: '10px' }}>
-        <Link to="/privacy"><Button variant="contained">Next</Button></Link>
+        <Link to="/goals"><Button variant="contained">Next</Button></Link>
        </div>
      </div>
   );

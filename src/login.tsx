@@ -11,7 +11,7 @@ function Login() {
           <h1>Health.Wealth</h1>
           <Modal />
           <Form />
-            <OuraRedirectPage />
+          <OuraRedirectPage />
         </div>
     </div>
   );
