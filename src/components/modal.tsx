@@ -6,7 +6,7 @@ import { ellipseAddress, getChainData } from '../lib/utilities';
 import Button from '@mui/material/Button';
 
 
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
 
 const providerOptions = {

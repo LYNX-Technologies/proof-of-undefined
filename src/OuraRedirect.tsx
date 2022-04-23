@@ -6,6 +6,7 @@ import qs from 'qs';
 const { REACT_APP_OURA_CLIENT_ID, REACT_APP_OURA_CLIENT_SECRET } = process.env;
 
 // The Oura credentials. Saved in localStorage.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Credentials = {
   access_token: string,
   expires_in: number,
@@ -20,7 +21,7 @@ type Credentials = {
  * and can be retrieved using localStorage.getItem('oura_credentials')
  */
 function OuraRedirectPage() {
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const [credentials, setCredentials] = useState(null);
 
   //
