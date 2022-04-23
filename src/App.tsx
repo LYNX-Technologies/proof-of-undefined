@@ -1,5 +1,6 @@
 import "./App.css";
 import Oura from "./Oura";
+import OuraRedirect from "./OuraRedirect";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
