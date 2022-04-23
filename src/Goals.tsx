@@ -22,17 +22,17 @@ function valuetext(value: number) {
     return `$DAI ${value}`;
 }
 
-async function submitChallenge(numberOfDays: number, amountOfEtherWithDecimal: number) {
-    const wallet = useWallet();
-    if (wallet.provider) {
-        await stakeEthereum(wallet.provider, numberOfDays, amountOfEtherWithDecimal);
-    }
-}
-
 export default function Goals() {
+    const wallet = useWallet();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    async function submitChallenge(numberOfDays: number, amountOfEtherWithDecimal: number) {
+        if (wallet.provider) {
+            await stakeEthereum(wallet.provider, numberOfDays, amountOfEtherWithDecimal);
+        }
+    }
 
 
   return (
