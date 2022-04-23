@@ -186,7 +186,6 @@ export const Modal = (): JSX.Element => {
       <header>
         {address && (
           <div className="grid">
-            TO TEST -  REMOVE FOR DEMO
             <div>
               <p className="mb-1">Network:</p>
               <p>{chainData?.name}</p>

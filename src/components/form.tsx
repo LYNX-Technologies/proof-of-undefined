@@ -60,7 +60,7 @@ export default function Form() {
         renderInput={(params) => <TextField {...params} label="DAO" />}
       />
        <div style={{ margin: '10px' }}>
-        <Link to="/goals"><Button variant="contained">Next</Button></Link>
+        <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/goals"><Button variant="contained">Next</Button></Link>
        </div>
      </div>
   );

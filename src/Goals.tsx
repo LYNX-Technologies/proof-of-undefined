@@ -5,6 +5,7 @@ import RunningImg from './assets/undraw_running.svg';
 import WalkingImg from './assets/undraw_walking.svg';
 import { useWallet } from './contexts/wallet';
 import { stakeEthereum } from './lib/stake';
+import { Link } from 'react-router-dom';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -38,7 +39,7 @@ export default function Goals() {
   return (
     <div>
         <h1>Set Goals</h1>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center">
             <Card sx={{ maxWidth: 345, m: 1 }}>
             <CardActionArea>
                 <CardMedia
@@ -53,11 +54,11 @@ export default function Goals() {
                     MEDITATION
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                    STARTING 01/05/22
+                    STARTING 23/04/22
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    10 MINS X4 PER WEEK (4 WEEKS)
-                    Recommended saving: 0.05 ETH
+                    <p>10 MINS X4 PER WEEK (4 WEEKS)</p>
+                    <p>Recommended saving: 0.05 ETH</p>
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -82,11 +83,11 @@ export default function Goals() {
                     RUNNING
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                    STARTING 01/05/22
+                    STARTING 28/04/22
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    5K X3 PER WEEK (4 WEEKS)
-                    Recommended saving: 0.05 ETH
+                    <p>5K X3 PER WEEK (4 WEEKS)</p>
+                    <p>Recommended saving: 0.05 ETH</p>
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -114,8 +115,8 @@ export default function Goals() {
                     STARTING 01/05/22
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    10K STEPS X5 PER WEEK (4 WEEKS)
-                    Recommended saving: 0.05 ETH
+                    <p>10K STEPS X5 PER WEEK (4 WEEKS)</p>
+                    <p>Recommended saving: 0.05 ETH</p>
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -171,6 +172,7 @@ export default function Goals() {
           </Button>
         </Box>
       </Modal>
+      <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/Dashboard"> <Button variant="contained">My Dashboard</Button> </Link>
     </div>
   );
 }
