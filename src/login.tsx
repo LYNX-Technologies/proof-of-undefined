@@ -1,9 +1,8 @@
 import "./styles/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Modal from './components/modal';
-import Form from './components/form';
+import Modal from "./components/modal";
+import Form from "./components/form";
 import OuraRedirectPage from "./OuraRedirect";
-
 
 function Login() {
   return (

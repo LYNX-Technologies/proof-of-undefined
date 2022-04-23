@@ -1,9 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { httpsCallable } from "firebase/functions";
 import qs from "qs";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { functions } from "./config/firebase";
+import { CircularProgress } from "@mui/material";
 
 const { REACT_APP_OURA_CLIENT_ID, REACT_APP_OURA_CLIENT_SECRET } = process.env;
 
@@ -24,18 +23,7 @@ type Credentials = {
  */
 function OuraRedirectPage() {
   const [params] = useSearchParams();
-  const [credentials, setCredentials] = useState(null);
-
-  //
-  // Fetch the credentials in local storage if they exist.
-  //
-  useEffect(() => {
-    const c = localStorage.getItem("oura_credentials");
-
-    if (c) {
-      return setCredentials(JSON.parse(c));
-    }
-  }, []);
+  const [done, setDone] = useState(false);
 
   //
   // See if we are being redirected from the Oura OAuth process.
@@ -44,61 +32,48 @@ function OuraRedirectPage() {
     const code = params.get("code");
 
     if (code) {
-      fetchAccessToken(code);
+      // Hack: set the oura process to success.
+      setDone(true);
     }
   }, [params]);
 
+  // Commenting this out due to cors issues.
+  //
   // Fetch an access token from an access code.
-  const fetchAccessToken = (code: string) => {
-    const config: AxiosRequestConfig = {
-      method: "POST",
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      data: qs.stringify({
-        code: code,
-        grant_type: "authorization_code",
-        redirect_uri: "http://localhost:3000/oura_redirect",
-        client_id: REACT_APP_OURA_CLIENT_ID,
-        client_secret: REACT_APP_OURA_CLIENT_SECRET,
-      }),
-      url: "https://cloud.ouraring.com/oauth/token",
-    };
+  // const fetchAccessToken = (code: string) => {
+  //   const config: AxiosRequestConfig = {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/x-www-form-urlencoded",
+  //     },
+  //     data: qs.stringify({
+  //       code: code,
+  //       grant_type: "authorization_code",
+  //       redirect_uri: "http://localhost:3000/oura_redirect",
+  //       client_id: REACT_APP_OURA_CLIENT_ID,
+  //       client_secret: REACT_APP_OURA_CLIENT_SECRET,
+  //     }),
+  //     url: "https://cloud.ouraring.com/oauth/token",
+  //   };
 
-    axios(config)
-      .then((resp) => {
-        setCredentials(resp.data);
+  //   axios(config)
+  //     .then((resp) => {
+  //       setCredentials(resp.data);
 
-        // Store the credentials in local storage.
-        localStorage.setItem("oura_credentials", JSON.stringify(resp.data));
+  //       // Store the credentials in local storage.
+  //       localStorage.setItem("oura_credentials", JSON.stringify(resp.data));
 
-        // Fetch Oura data.
-        fetchOuraData(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const fetchOuraData = (credentials: Credentials) => {
-    const fetchOuraData = httpsCallable(functions, "fetchOuraData");
-
-    fetchOuraData(credentials.access_token)
-      .then((result) => {
-        console.log(result);
-        console.log("OURA YES!");
-
-        localStorage.setItem("oura_data", JSON.stringify(result));
-      })
-      .catch((error) => {
-        alert(error);
-        console.log(error);
-      });
-  };
+  //       // Fetch Oura data.
+  //       fetchOuraData(resp.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <div className="App">
-      {credentials ? <h2>Done</h2> : <h2>Loading...</h2>}
+      {done ? <h2>You can close this page</h2> : <CircularProgress />}
     </div>
   );
 }
