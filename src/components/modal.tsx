@@ -3,6 +3,8 @@ import { providers } from 'ethers';
 import { useCallback, useEffect, useReducer } from 'react';
 import Web3Modal from 'web3modal';
 import { ellipseAddress, getChainData } from '../lib/utilities';
+import Button from '@mui/material/Button';
+
 
 const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
 
@@ -190,6 +192,7 @@ export const Modal = (): JSX.Element => {
       <header>
         {address && (
           <div className="grid">
+            TO TEST -  REMOVE FOR DEMO
             <div>
               <p className="mb-1">Network:</p>
               <p>{chainData?.name}</p>
@@ -203,15 +206,11 @@ export const Modal = (): JSX.Element => {
       </header>
 
       <main>
-        <h1 className="title">Web3Modal Example</h1>
         {web3Provider ? (
-          <button className="button" type="button" onClick={disconnect}>
-            Disconnect
-          </button>
+          <Button variant="outlined" onClick={disconnect}>Disconnect</Button>
         ) : (
-          <button className="button" type="button" onClick={connect}>
-            Connect
-          </button>
+          <Button variant="contained" onClick={connect}>Connect Wallet</Button>
+
         )}
       </main>
     </div>
