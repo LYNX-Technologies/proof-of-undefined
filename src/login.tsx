@@ -10,7 +10,7 @@ function Login() {
     <div className="App">
       <BrowserRouter>
         <div>
-          <h1>Health. Wealth</h1>
+          <h1>Health.Wealth</h1>
           <Modal />
           <Form />
           <Routes>

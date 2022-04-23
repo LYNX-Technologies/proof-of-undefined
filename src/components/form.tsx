@@ -6,7 +6,9 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import AuthorizeOuraButton from "./AuthorizeOuraButton";
 import { useEffect, useState } from "react";
-
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
 
 export default function Form() {
   const [device, setDevice] = React.useState('');
@@ -29,10 +31,10 @@ export default function Form() {
   }, [])
 
   return (
-    <div style={{ alignContent: 'center', display: 'flex'}}>
-      <Box sx={{ m: 1, width: 300, mt: 3 }}>
+    <div style={{ alignContent: 'center', margin: 'auto', width: '50%'}}>
+        <Box sx={{ m: 1, mt: 3 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Connect Device</InputLabel>
+          <InputLabel id="demo-simple-select-label">Device</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -40,16 +42,32 @@ export default function Form() {
             label="Device"
             onChange={handleChange}
           >
-            <MenuItem value={10}>Apple Watch</MenuItem>
-            <MenuItem value={20}>Oura Ring</MenuItem>
-            <MenuItem value={30}>Fitbit</MenuItem>
-            <MenuItem value={30}>Muse BCI</MenuItem>
+            <MenuItem value={1}>Apple Watch</MenuItem>
+            <MenuItem value={2}>Oura Ring</MenuItem>
+            <MenuItem value={3}>Fitbit</MenuItem>
+            <MenuItem value={4}>Muse BCI</MenuItem>
           </Select>
         </FormControl>
         <div style={{ margin: '10px' }}>
-          {!credentials ? <AuthorizeOuraButton /> : <h1>Here there be data</h1>}
+          {!credentials ? <AuthorizeOuraButton /> : <h1>Connected</h1>}
         </div>
       </Box>
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={daos}
+        renderInput={(params) => <TextField {...params} label="DAO" />}
+      />
+       <div style={{ margin: '10px' }}>
+        <Button variant="contained" href="/privacy">Next</Button>
+       </div>
      </div>
   );
 }
+
+const daos = [
+  { label: 'MakerDAO'},
+  { label: 'VitaDao'},
+  { label: '...'},
+  { label: '...' }
+]
