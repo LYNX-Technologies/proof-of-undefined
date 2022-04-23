@@ -32,7 +32,7 @@ function AuthorizeOuraButton() {
   };
 
   return (
-    <Button onClick={authorizeOura} variant="contained">{credentials ? "Done" : "Authorize Oura"}</Button>
+    <Button onClick={authorizeOura} variant="contained">{credentials ? "Done" : "Connect Device"}</Button>
   );
 }
 
