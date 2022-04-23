@@ -1,7 +1,6 @@
-import WalletConnectProvider from '@walletconnect/web3-provider';
+import WalletConnectProvider from '@walletconnect/ethereum-provider';
 import { providers } from 'ethers';
 import { useCallback, useEffect, useReducer } from 'react';
-import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3Modal from 'web3modal';
 import { ellipseAddress, getChainData } from '../lib/utilities';
 
@@ -14,16 +13,16 @@ const providerOptions = {
             infuraId: "INFURA_ID" // required
         }
     },
-    coinbasewallet: {
-        package: CoinbaseWalletSDK, // Required
-        options: {
-          appName: "My Awesome App", // Required
-          infuraId: "INFURA_ID", // Required
-          rpc: "", // Optional if `infuraId` is provided; otherwise it's required
-          chainId: 1, // Optional. It defaults to 1 if not provided
-          darkMode: false // Optional. Use dark theme, defaults to false
-        }
-    }
+    // coinbasewallet: {
+    //     // package: CoinbaseWalletSDK, // Required
+    //     options: {
+    //       appName: "My Awesome App", // Required
+    //       infuraId: "INFURA_ID", // Required
+    //       rpc: "", // Optional if `infuraId` is provided; otherwise it's required
+    //       chainId: 1, // Optional. It defaults to 1 if not provided
+    //       darkMode: false // Optional. Use dark theme, defaults to false
+    //     }
+    // }
 }
 
 let web3Modal:any
