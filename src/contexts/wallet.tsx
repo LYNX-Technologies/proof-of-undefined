@@ -1,8 +1,10 @@
+import { JsonRpcSigner } from "@ethersproject/providers";
 import React, { createContext, PropsWithChildren, useContext, useState } from "react";
 
 interface WalletService {
     address?:string;
-    setAddress: (address:string) => void;
+    provider?: JsonRpcSigner;
+    setAddress: (address:string, provider:JsonRpcSigner) => void;
 }
 
 const WalletContext = createContext<WalletService>({setAddress:()=>{}});
@@ -12,8 +14,8 @@ export function useWallet(){
 }
 
 export const ServerContext = (props:PropsWithChildren<{}>) => {
-    const setWalletContext = (address:string) => {
-        setWallet({...wallet, address});
+    const setWalletContext = (address:string, provider:JsonRpcSigner) => {
+        setWallet({...wallet, address, provider});
     }
     const [wallet, setWallet] = useState<WalletService>({setAddress:setWalletContext});
   return (
