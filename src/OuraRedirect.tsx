@@ -1,7 +1,10 @@
+import axios, { AxiosRequestConfig } from 'axios';
+import { httpsCallable } from "firebase/functions";
+import qs from 'qs';
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import axios, { AxiosRequestConfig } from 'axios';
-import qs from 'qs';
+import { functions } from "./config/firebase";
+
 
 const { REACT_APP_OURA_CLIENT_ID, REACT_APP_OURA_CLIENT_SECRET } = process.env;
 
@@ -62,10 +65,23 @@ function OuraRedirectPage() {
     };
 
     axios(config).then((resp) => {
-      setCredentials(resp.data);
+
+      // setCredentials(resp.data);
 
       // Store the credentials in local storage.
-      localStorage.setItem('oura_credentials', JSON.stringify(resp.data));
+      // localStorage.setItem('oura_credentials', JSON.stringify(resp.data));
+
+      const storeOuraKey = httpsCallable(functions, 'storeOuraKey');
+      storeOuraKey(resp.data)
+      .then((result) => { 
+        console.log("OURA YES!");
+    })
+    .catch((error) => {
+      alert(error);
+    });
+    })
+      .then((result) => {
+        console.log("YES!");
     })
     .catch((error) => {
       alert(error);
@@ -77,6 +93,6 @@ function OuraRedirectPage() {
       {credentials ? <h2>Done</h2> : <h2>Loading...</h2>}
     </div>
   );
-}
 
+  }
 export default OuraRedirectPage;
