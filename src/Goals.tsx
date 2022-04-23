@@ -3,6 +3,8 @@ import { Modal, Box, Button, CardActionArea, CardActions, Card, Grid, CardConten
 import MeditationImg from './assets/undraw_meditation.svg';
 import RunningImg from './assets/undraw_running.svg';
 import WalkingImg from './assets/undraw_walking.svg';
+import { useWallet } from './contexts/wallet';
+import { stakeEthereum } from './lib/stake';
 import { Link } from 'react-router-dom';
 import { useWallet } from './contexts/wallet';
 import { stakeEthereum } from './lib/stake';
