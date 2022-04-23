@@ -47,7 +47,7 @@ export default function Goals() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     10 MINS X4 PER WEEK (4 WEEKS)
-                    Recommended saving: 50 DAI
+                    Recommended saving: 0.05 ETH
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -105,7 +105,7 @@ export default function Goals() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     10K STEPS X5 PER WEEK (4 WEEKS)
-                    Recommended saving: 50 DAI
+                    Recommended saving: 0.05 ETH
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -132,9 +132,11 @@ export default function Goals() {
           <Box sx={{ width: 300 }}>
             <Slider
                 aria-label=""
-                defaultValue={50}
+                defaultValue={0.05}
+                min={0.03}
+                max={0.11}
                 getAriaValueText={valuetext}
-                step={5}
+                step={0.01}
                 valueLabelDisplay="auto"
                 marks={marks}
             />
@@ -146,15 +148,17 @@ export default function Goals() {
             <Slider
                 aria-label=""
                 defaultValue={4}
+                min={2}
+                max={12}
                 getAriaValueText={valuetext}
                 step={1}
                 valueLabelDisplay="auto"
                 marks={length}
             />
           </Box>
-          <Button size="small" color="primary" onClick={handleOpen}>
+          <Button size="small" color="primary" onClick={}>
             SUBMIT
-        </Button>
+          </Button>
         </Box>
       </Modal>
     </div>
@@ -163,50 +167,50 @@ export default function Goals() {
 
 const marks = [
     {
-      value: 1,
-      label: '1',
+      value: 0.03,
+      label: '0.03',
     },
     {
-      value: 25,
-      label: '25',
+      value: 0.05,
+      label: '0.05',
     },
     {
-      value: 50,
-      label: '50',
+      value: 0.07,
+      label: '0.07',
     },
     {
-      value: 75,
-      label: '75',
+      value: 0.09,
+      label: '0.09',
     },
     {
-      value: 100,
-      label: '100',
+      value: 0.11,
+      label: '0.11',
     },
   ];
 
   const length = [
     {
-      value: 0,
+      value: 2,
       label: '2',
     },
     {
-      value: 20,
+      value: 4,
       label: '4',
     },
     {
-      value: 40,
+      value: 6,
       label: '6',
     },
     {
-      value: 60,
+      value: 8,
       label: '8',
     },
     {
-      value: 80,
+      value: 10,
       label: '10',
     },
     {
-      value: 100,
+      value: 12,
       label: '12',
     }
   ];
