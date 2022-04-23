@@ -156,7 +156,7 @@ export default function Goals() {
                 marks={length}
             />
           </Box>
-          <Button size="small" color="primary" onClick={}>
+          <Button size="small" color="primary">
             SUBMIT
           </Button>
         </Box>
