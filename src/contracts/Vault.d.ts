@@ -19,28 +19,37 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface StakingInterface extends ethers.utils.Interface {
+interface VaultInterface extends ethers.utils.Interface {
   functions: {
-    "stake(uint256,uint256)": FunctionFragment;
-    "totalPool()": FunctionFragment;
-    "withdraw(address)": FunctionFragment;
+    "deposit(uint256)": FunctionFragment;
+    "pricePerShare()": FunctionFragment;
+    "withdraw(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "stake",
-    values: [BigNumberish, BigNumberish]
+    functionFragment: "deposit",
+    values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "totalPool", values?: undefined): string;
-  encodeFunctionData(functionFragment: "withdraw", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "pricePerShare",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [BigNumberish]
+  ): string;
 
-  decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "totalPool", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pricePerShare",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {};
 }
 
-export class Staking extends BaseContract {
+export class Vault extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -81,76 +90,74 @@ export class Staking extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: StakingInterface;
+  interface: VaultInterface;
 
   functions: {
-    stake(
-      deadline: BigNumberish,
-      amount: BigNumberish,
+    deposit(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    totalPool(overrides?: CallOverrides): Promise<[BigNumber]>;
+    pricePerShare(overrides?: CallOverrides): Promise<[void]>;
 
     withdraw(
-      target: string,
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  stake(
-    deadline: BigNumberish,
-    amount: BigNumberish,
+  deposit(
+    _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  totalPool(overrides?: CallOverrides): Promise<BigNumber>;
+  pricePerShare(overrides?: CallOverrides): Promise<void>;
 
   withdraw(
-    target: string,
+    _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    stake(
-      deadline: BigNumberish,
-      amount: BigNumberish,
+    deposit(
+      _amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
 
-    totalPool(overrides?: CallOverrides): Promise<BigNumber>;
+    pricePerShare(overrides?: CallOverrides): Promise<void>;
 
-    withdraw(target: string, overrides?: CallOverrides): Promise<void>;
+    withdraw(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
-    stake(
-      deadline: BigNumberish,
-      amount: BigNumberish,
+    deposit(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    totalPool(overrides?: CallOverrides): Promise<BigNumber>;
+    pricePerShare(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdraw(
-      target: string,
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    stake(
-      deadline: BigNumberish,
-      amount: BigNumberish,
+    deposit(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    totalPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    pricePerShare(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdraw(
-      target: string,
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

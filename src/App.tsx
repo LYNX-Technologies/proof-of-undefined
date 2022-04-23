@@ -11,6 +11,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 function App() {
   return (
     <div className="App">
+      <ServerContext>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -19,6 +20,7 @@ function App() {
           <Route path="/oura_redirect" element={<OuraRedirectPage />} />
         </Routes>
       </BrowserRouter>
+      </ServerContext>
     </div>
   );
 }
