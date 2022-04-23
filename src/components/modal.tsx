@@ -21,7 +21,7 @@ const providerOptions = {
 let web3Modal:any
 if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
-    network: 'mainnet', // optional
+    network: 'rinkeby', // optional
     providerOptions, // required
   })
 }
