@@ -26,7 +26,7 @@ const MeditationCard = (props: Props) => {
           }}
         />
         <Typography gutterBottom variant="h5" component="div">
-          5 min meditation
+          10 min meditation
         </Typography>
         <Typography variant="subtitle1" color="text.secondary">
           {props.date}
