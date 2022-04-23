@@ -44,7 +44,8 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "emitWarning": true
   },
   "browserslist": {
     "production": [
