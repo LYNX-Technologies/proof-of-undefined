@@ -4,7 +4,7 @@ import { useCallback, useEffect, useReducer } from 'react';
 import Web3Modal from 'web3modal';
 import { ellipseAddress, getChainData } from '../lib/utilities';
 
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
 
 const providerOptions = {
