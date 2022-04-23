@@ -1,23 +1,18 @@
-import "./styles/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Modal from './components/modal';
 import Form from './components/form';
+import Modal from './components/modal';
 import OuraRedirectPage from "./OuraRedirect";
+import "./styles/App.css";
 
 
 function Login() {
   return (
     <div className="App">
-      <BrowserRouter>
         <div>
           <h1>Health.Wealth</h1>
           <Modal />
           <Form />
-          <Routes>
-            <Route path="/oura_redirect" element={<OuraRedirectPage />} />
-          </Routes>
+            <OuraRedirectPage />
         </div>
-      </BrowserRouter>
     </div>
   );
 }

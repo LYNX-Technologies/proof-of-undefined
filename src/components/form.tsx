@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 export default function Form() {
   const [device, setDevice] = React.useState('');
@@ -59,7 +60,7 @@ export default function Form() {
         renderInput={(params) => <TextField {...params} label="DAO" />}
       />
        <div style={{ margin: '10px' }}>
-        <Button variant="contained" href="/privacy">Next</Button>
+        <Link to="/privacy"><Button variant="contained">Next</Button></Link>
        </div>
      </div>
   );
