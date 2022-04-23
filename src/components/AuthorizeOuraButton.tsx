@@ -5,11 +5,15 @@ import { functions } from "../config/firebase";
 
 const { REACT_APP_OURA_CLIENT_ID } = process.env;
 
+interface MeditationData {
+  meditation_sessions: { date: string; duration: number }[];
+}
+
 /**
  * A page that is used to authorize Oura access.
  */
 function AuthorizeOuraButton() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<MeditationData | null>(null);
 
   //
   // Fetch the data in local storage if it exists.
@@ -36,7 +40,9 @@ function AuthorizeOuraButton() {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
 
-    // Mock the meditation data
+    //
+    // Mock the meditation data.
+    //
     const mock = {
       meditation_sessions: [
         {
@@ -49,6 +55,8 @@ function AuthorizeOuraButton() {
         },
       ],
     };
+
+    setData(mock);
 
     localStorage.setItem("data", JSON.stringify(mock));
   };
