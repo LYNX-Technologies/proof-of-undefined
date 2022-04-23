@@ -14,7 +14,7 @@ type Props = {
 
 const MeditationCard = (props: Props) => {
   return (
-    <Card sx={{ maxWidth: 345, m: 1 }}>
+    <Card sx={{ maxWidth: 345, marginBottom: "0.5rem" }}>
       <CardContent>
         <img
           src={OuraImg}
@@ -39,15 +39,17 @@ const MeditationCard = (props: Props) => {
 const MeditationColumn = () => {
   return (
     <Grid item xs={4}>
-      <Typography
-        variant="subtitle1"
-        color="text.secondary"
-        sx={{ paddingTop: "1rem" }}
-      >
-        Completed
-      </Typography>
-      <MeditationCard date={"Thursday 1:21 PM"} />
-      <MeditationCard date={"Friday 10:34 AM"} />
+      <Stack>
+        <Typography
+          variant="subtitle1"
+          color="text.secondary"
+          sx={{ paddingTop: "1rem" }}
+        >
+          Completed
+        </Typography>
+        <MeditationCard date={"Thursday 1:21 PM"} />
+        <MeditationCard date={"Friday 10:34 AM"} />
+      </Stack>
     </Grid>
   );
 };
@@ -58,46 +60,58 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <Grid container spacing={2} alignItems="start">
         <Grid item xs={8}>
-          <Card>
-            <Stack direction="column" justifyContent="start">
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                sx={{ paddingTop: "1rem" }}
-              >
-                Goal
-              </Typography>
-              <Typography variant="h4">Meditation</Typography>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            sx={{ paddingTop: "1rem" }}
+          >
+            Goal
+          </Typography>
+          <Card sx={{ paddingBottom: "2rem" }}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  sx={{ paddingTop: "1rem" }}
+                >
+                  Type
+                </Typography>
+                <Typography variant="h4">Meditation</Typography>
 
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                sx={{ paddingTop: "1rem" }}
-              >
-                Time Left
-              </Typography>
-              <Typography variant="h4">2 days</Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  sx={{ paddingTop: "1rem" }}
+                >
+                  Time Left
+                </Typography>
+                <Typography variant="h4">2 days</Typography>
+              </Grid>
 
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                sx={{ paddingTop: "1rem" }}
-              >
-                Progress
-              </Typography>
-              <Typography variant="h4">2 / 4</Typography>
+              <Grid item xs={6}>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  sx={{ paddingTop: "1rem" }}
+                >
+                  Progress
+                </Typography>
+                <Typography variant="h4">2 / 4</Typography>
 
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                sx={{ paddingTop: "1rem" }}
-              >
-                Money Staked
-              </Typography>
-              <Typography variant="h4">50 DAI</Typography>
-            </Stack>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  sx={{ paddingTop: "1rem" }}
+                >
+                  Money Staked
+                </Typography>
+                <Typography variant="h4">50 DAI</Typography>
+              </Grid>
+            </Grid>
           </Card>
         </Grid>
+
         <MeditationColumn />
       </Grid>
     </div>
