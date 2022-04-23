@@ -31,7 +31,6 @@ let web3Modal:any
 if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
     network: 'mainnet', // optional
-    cacheProvider: true,
     providerOptions, // required
   })
 }
