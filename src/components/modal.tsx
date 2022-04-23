@@ -1,9 +1,10 @@
+import Button from '@mui/material/Button';
 import WalletConnectProvider from '@walletconnect/ethereum-provider';
 import { providers } from 'ethers';
 import { useCallback, useEffect, useReducer } from 'react';
 import Web3Modal from 'web3modal';
+import { useWallet } from '../contexts/wallet';
 import { ellipseAddress, getChainData } from '../lib/utilities';
-import Button from '@mui/material/Button';
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,7 +90,8 @@ function reducer(state: StateType, action: ActionType): StateType {
 
 export const Modal = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { provider, web3Provider, address, chainId } = state
+  const { provider, web3Provider, address, chainId } = state;
+  const wallet = useWallet();
 
   const connect = useCallback(async function () {
     // This is the initial `provider` that is returned when
@@ -112,7 +114,9 @@ export const Modal = (): JSX.Element => {
       web3Provider,
       address,
       chainId: network.chainId,
-    })
+    });
+
+    wallet.setAddress(address);
   }, [])
 
   const disconnect = useCallback(
