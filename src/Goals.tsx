@@ -4,7 +4,7 @@ import MeditationImg from './assets/undraw_meditation.svg';
 import RunningImg from './assets/undraw_running.svg';
 import WalkingImg from './assets/undraw_walking.svg';
 import { useWallet } from './contexts/wallet';
-import { stakeEthereum } from './lib/stake';
+import { approveDaiAccess, stakeDai } from './lib/stake';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -19,6 +19,12 @@ const style = {
     p: 4,
 };
 
+enum StepName {
+    first,
+    second,
+    third
+};
+
 function valuetext(value: number) {
     return `$DAI ${value}`;
 }
@@ -29,12 +35,98 @@ export default function Goals() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    async function submitChallenge(numberOfDays: number, amountOfEtherWithDecimal: number) {
+    async function stake(numberOfDays: number, amountOfEtherWithDecimal: number) {
         if (wallet.provider) {
-            await stakeEthereum(wallet.provider, numberOfDays, amountOfEtherWithDecimal);
+            await stakeDai(wallet.provider, numberOfDays, amountOfEtherWithDecimal);
         }
     }
 
+    async function approve(amount: number) {
+        if (wallet.provider) {
+            await approveDaiAccess(wallet.provider, amount);
+        }
+    }
+
+    const [step, setStep] = React.useState<StepName>(StepName.first);
+
+    function stepCounter() {
+        switch (step) {
+            case StepName.first:
+                return <First/>;
+            case StepName.second:
+                return <Second/>
+            case StepName.third:
+                return <Third/>
+            default:
+                break;
+        }
+        return <div/>;
+    }
+
+    const First = () => {
+        return (
+            <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                Choose your pledge amount + length
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Amount($DAI)
+                </Typography>
+                <Box sx={{ width: 300 }}>
+                <Slider
+                    aria-label=""
+                    defaultValue={50}
+                    min={10}
+                    max={100}
+                    getAriaValueText={valuetext}
+                    step={10}
+                    valueLabelDisplay="auto"
+                    marks={marks}
+                />
+                </Box>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Length (weeks)
+                </Typography>
+                <Box sx={{ width: 300 }}>
+                <Slider
+                    aria-label=""
+                    defaultValue={4}
+                    min={2}
+                    max={12}
+                    getAriaValueText={valuetext}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    marks={length}
+                />
+                </Box>
+                <Button size="small" color="primary" onClick={() => setStep(StepName.second)}>
+                    Next
+                </Button>
+            </Box>
+        );
+    }
+
+    const Second = () => {
+        return (
+            <Box sx={style}>
+                Do you approve access to use your DAI?
+                <Button size="small" color="primary" onClick={async () => {await approve(1);setStep(StepName.third)}}>
+                    Approve
+                </Button>
+            </Box>
+        );
+    } 
+
+    const Third = () => {
+        return (
+            <Box sx={style}>
+                Do you want to stake your DAI?
+                <Button size="small" color="primary" onClick={() => stake(30, 5)}>
+                    STAKE
+                </Button>
+            </Box>
+        );
+    }
 
   return (
     <div>
@@ -58,7 +150,7 @@ export default function Goals() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     <p>10 MINS X4 PER WEEK (4 WEEKS)</p>
-                    <p>Recommended saving: 0.05 ETH</p>
+                    <p>Recommended saving: 50 DAI</p>
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -87,7 +179,7 @@ export default function Goals() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     <p>5K X3 PER WEEK (4 WEEKS)</p>
-                    <p>Recommended saving: 0.05 ETH</p>
+                    <p>Recommended saving: 50 DAI</p>
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -116,7 +208,7 @@ export default function Goals() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     <p>10K STEPS X5 PER WEEK (4 WEEKS)</p>
-                    <p>Recommended saving: 0.05 ETH</p>
+                    <p>Recommended saving: 50 DAI</p>
                 </Typography>
                 </CardContent>
             </CardActionArea>
@@ -128,50 +220,13 @@ export default function Goals() {
             </Card>
         </Grid>
         <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Choose your pledge amount + length
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Amount($DAI)
-          </Typography>
-          <Box sx={{ width: 300 }}>
-            <Slider
-                aria-label=""
-                defaultValue={0.05}
-                min={0.03}
-                max={0.11}
-                getAriaValueText={valuetext}
-                step={0.01}
-                valueLabelDisplay="auto"
-                marks={marks}
-            />
-          </Box>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Length (weeks)
-          </Typography>
-          <Box sx={{ width: 300 }}>
-            <Slider
-                aria-label=""
-                defaultValue={4}
-                min={2}
-                max={12}
-                getAriaValueText={valuetext}
-                step={1}
-                valueLabelDisplay="auto"
-                marks={length}
-            />
-          </Box>
-          <Button size="small" color="primary" onClick={() => submitChallenge(30, 0.05)}>
-            SUBMIT
-          </Button>
-        </Box>
-      </Modal>
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            {stepCounter()}
+        </Modal>
       <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to="/Dashboard"> <Button variant="contained">My Dashboard</Button> </Link>
     </div>
   );
@@ -179,24 +234,44 @@ export default function Goals() {
 
 const marks = [
     {
-      value: 0.03,
-      label: '0.03',
+      value: 10,
+      label: '10',
     },
     {
-      value: 0.05,
-      label: '0.05',
+      value: 20,
+      label: '20',
     },
     {
-      value: 0.07,
-      label: '0.07',
+      value: 30,
+      label: '30',
     },
     {
-      value: 0.09,
-      label: '0.09',
+      value: 40,
+      label: '40',
     },
     {
-      value: 0.11,
-      label: '0.11',
+      value: 50,
+      label: '50',
+    },
+    {
+      value: 60,
+      label: '60',
+    },
+    {
+      value: 70,
+      label: '70',
+    },
+    {
+      value: 80,
+      label: '80',
+    },
+    {
+      value: 90,
+      label: '90',
+    },
+    {
+      value: 100,
+      label: '100',
     },
   ];
 
