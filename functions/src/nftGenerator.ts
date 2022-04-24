@@ -27,7 +27,7 @@ export const nftGenerator = async (address: string, data: string) => {
 
   const test = await nftContract.safeMint(address, ipfsAddress, encryptedData.securityKey);
 
-  return test;
+  return {tx: test, cid: ipfsAddress};
 };
 
 const uploadToNft = async (data:string) : Promise<string> => {

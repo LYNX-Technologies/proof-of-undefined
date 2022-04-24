@@ -110,7 +110,7 @@ export default function Goals() {
         return (
             <Box sx={style}>
                 Do you approve access to use your DAI?
-                <Button size="small" color="primary" onClick={async () => {await approve(1);setStep(StepName.third)}}>
+                <Button size="small" color="primary" onClick={async () => {await approve(10);setStep(StepName.third)}}>
                     Approve
                 </Button>
             </Box>
@@ -121,7 +121,7 @@ export default function Goals() {
         return (
             <Box sx={style}>
                 Do you want to stake your DAI?
-                <Button size="small" color="primary" onClick={() => stake(30, 5)}>
+                <Button size="small" color="primary" onClick={() => stake(30, 10)}>
                     STAKE
                 </Button>
             </Box>

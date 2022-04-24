@@ -40,7 +40,7 @@ export const rewardUser = https.onCall(async (data, context) => {
   if (reward) {
     const result = await nftGenerator(user, `random-data${user}${Date.now()}`);
     logger.info("Run NFT generator for " + user, result);
-    return "ok";
+    return result;
   } else {
     logger.info("Didn't do anything for user", user);
     return "not ok";

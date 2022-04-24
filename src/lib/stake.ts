@@ -27,7 +27,7 @@ export async function stakeDai(signer: JsonRpcSigner, days: number, value: numbe
 
     const multiply = ethers.utils.parseEther(`${value}`);
 
-    const coffeeContract = new ethers.Contract(
+    const stakeContract = new ethers.Contract(
         CONTRACT_ADDRESS,
         CryptoContract.abi,
         signer
@@ -35,11 +35,26 @@ export async function stakeDai(signer: JsonRpcSigner, days: number, value: numbe
 
     const deadline = futureDateToUnixTime(days);
 
-    const tx = await coffeeContract.stake(deadline, multiply);
+    const tx = await stakeContract.stake(deadline, multiply);
 
     console.log(tx);
 
     return tx;
+}
+
+export async function withdraw(signer: JsonRpcSigner, address:string) : Promise<ethers.ContractTransaction | undefined>{
+    if (!window.ethereum) {
+        console.log('no ethereum!');
+        return;
+    }
+
+    const stakeContract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        CryptoContract.abi,
+        signer
+    ) as Staking;
+
+    const tx = await stakeContract.withdraw(address);
 }
 
 function futureDateToUnixTime(days: number) {
