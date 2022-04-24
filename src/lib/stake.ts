@@ -5,7 +5,6 @@ import Dai from '../artifacts/contracts/Dai.json';
 import type {Staking} from "../contracts";
 import {JsonRpcSigner} from "@ethersproject/providers";
 
-
 export async function approveDaiAccess(signer: JsonRpcSigner, amount: number): Promise<ethers.ContractTransaction | undefined> {
     const multiply = ethers.utils.parseEther(`${amount}`);
 
@@ -20,7 +19,7 @@ export async function approveDaiAccess(signer: JsonRpcSigner, amount: number): P
     return test;
 }
 
-export async function stakeEthereum(signer: JsonRpcSigner, days: number, value: number): Promise<ethers.ContractTransaction | undefined> {
+export async function stakeDai(signer: JsonRpcSigner, days: number, value: number): Promise<ethers.ContractTransaction | undefined> {
     if (!window.ethereum) {
         console.log('no ethereum!');
         return;
