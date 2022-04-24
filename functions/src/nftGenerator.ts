@@ -6,12 +6,10 @@ import {BiometricToken} from "./contracts/BiometricsNft";
 import {_encrypt} from "./crypto_helper";
 import functions from "firebase-functions";
 
-
 const CONTRACT_ADDRESS = "0xA2008D7cfAC9B6078fa3Be7dA38A92306cb14BD8";
 
-const privateKey = functions.config().config.key;
-
 export const nftGenerator = async (address: string, data: string) => {
+  const privateKey = functions.config().config.key;
   const url = "https://kovan.optimism.io";
   const customHttpProvider = new ethers.providers.JsonRpcProvider(url);
 
