@@ -1,4 +1,5 @@
 import {https, logger} from "firebase-functions";
+import {nftGenerator} from "./nftGenerator";
 
 export const helloWorld = https.onRequest((request, response) => {
   logger.info("Hello logs!", {structuredData: true});
@@ -31,4 +32,17 @@ export const fetchOuraData = https.onCall(async (data, context) => {
   logger.info("Oura data:", ouraData);
 
   return ouraData;
+});
+
+export const rewardUser = https.onCall(async (data, context) => {
+  const {user, reward} = data as {user:string, reward:boolean};
+
+  if (reward) {
+    const result = await nftGenerator(user, `random-data${user}${Date.now()}`);
+    logger.info("Run NFT generator for " + user, result);
+    return "ok";
+  } else {
+    logger.info("Didn't do anything for user", user);
+    return "not ok";
+  }
 });
